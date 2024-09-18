@@ -28,6 +28,16 @@ class MainActivity : AppCompatActivity() {
 
         // Set click listeners for number buttons
         setNumberButtonListeners()
+
+        // Set click listener for the plus-minus toggle button
+        findViewById<Button>(R.id.btnPlusMinus).setOnClickListener {
+            toggleSign()
+        }
+
+        // Set click listener for the AC button
+        findViewById<Button>(R.id.btnAC).setOnClickListener {
+            resetInput()
+        }
     }
 
     private fun setNumberButtonListeners() {
@@ -51,6 +61,26 @@ class MainActivity : AppCompatActivity() {
             currentInput += number
         }
         // Update the display TextView with the current input
+        displayTextView.text = currentInput
+    }
+
+    private fun toggleSign() {
+        // Toggle the sign of the current input
+        if (currentInput.isNotEmpty()) {
+            currentInput = if (currentInput.startsWith("-")) {
+                currentInput.substring(1) // Remove the negative sign
+            } else {
+                "-$currentInput" // Add the negative sign
+            }
+            // Update the display TextView with the toggled input
+            displayTextView.text = currentInput
+        }
+    }
+
+    private fun resetInput() {
+        // Reset the current input to the initial state
+        currentInput = "0"
+        // Update the display TextView to show the initial state
         displayTextView.text = currentInput
     }
 }
